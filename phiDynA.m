@@ -9,11 +9,12 @@ ep=ep1^2;
 sigma=3;
 ro=3.5;
 or=.1;
-sifiu=0.;
+gamma = 0.0001;
+Afi = 1;
+%sifiu=0.;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Afi=1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -38,7 +39,6 @@ for i=1:Nx
         rr(i,j)=abs(ra(1,i));
     end
 end
-
 
 
 %load Marzo15-1-2013
@@ -69,11 +69,17 @@ for i=1:Nx
 u(i,j)=or+ro*exp(-((j)^2+(i-Ri+4)^2)/30);
     end
 end 
-u=u+sifiu*lapfi;
+%u=u+sifiu*lapfi;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-        mu=((fi-ep1*u).*((fi).^2-1)-ep*lapfi);
+        H=u;
+        lap0
+        lapu=lapH;
+        H=u;
+        grad0p
+        lapu=lapu+g0H./rr;
+        
+        mu=(fi-ep1*u).*((fi).^2-1)-ep*lapfi;
         
         H=mu;
         lap0
@@ -82,28 +88,28 @@ u=u+sifiu*lapfi;
         grad0p
         lapmu=lapmu+g0H./rr;
         
-        F=Afi*((3*fi.^2-1-2*ep1*fi.*u).*mu-ep*lapmu);
+        F=Afi*(2*(3*fi.^2-1-2*ep1*fi.*u).*mu-ep*lapmu)+gamma*lapu;
         
 
         
-        H=F;
-        lap0
-        lapF=lapH;
-        H=F;
+        %%H=F;
+        %lap0
+        %lapF=lapH;
+        %H=F;
 
-       grad0p
-        lapF=lapF+g0H./rr;
+       %grad0p
+        %lapF=lapF+g0H./rr;
         
         
         Fs=-sigma*lapfi;
 
         
-        H=Fs;
-        lap0
-        lapFs=lapH;
-        H=Fs;
-        grad0p
-        lapFs=lapFs+g0H./rr;
+        %H=Fs;
+        %lap0
+        %lapFs=lapH;
+        %H=Fs;
+        %grad0p
+        %lapFs=lapFs+g0H./rr;
  %% seccion para el parametro de lagrange
 %         H=lapF;
 %         grad0circ
@@ -132,27 +138,26 @@ u=u+sifiu*lapfi;
 % %%        
 
  %       fi=fi+dt*(lapF+lapFs);
- 
-        H=u;
-        lap0
-        lapu=lapH;
-        H=u;
-        grad0p
-        lapu=lapu+g0H./rr;
-        Fw=sifiu*(lapu);
+ % Correspondencia con el modelo de Allen-Cahn
+        %H=u;
+        %lap0
+        %lapu=lapH;
+        %H=u;
+        %grad0p
+        %lapu=lapu+g0H./rr;
+        %Fw=sifiu*(lapu);
         
 
-        fi=fi-dt*(F+Fs+Fw);
+        fi=fi-dt*(F+Fs);%quite la suma de Fw
+        % correspondencia con el modelo de Cahn-Hilliard
 fi(1,:)=fiini(1,:);
 
 
     end
-  
-% save(['zsave-' num2str(iter)],'fi,'u','rr')       
-
-save(['zsave-' num2str(iter)])
-
-
+    
+    
+save(['Asave-' num2str(iter)])
+       
 sig(iter)=sigma;
 
     h=isnan(fi(Nx/2,Ny/2));
@@ -201,15 +206,15 @@ sig(iter)=sigma;
 %     %axis equal, axis off
 %     %caxis ([0 1])
 %     %axis([1 Ny 1 Nx])
-     pause(.01)
+     %pause(.01)
     %end
     
 %%
-figure(3)
-plot(sig)
+%figure(3)
+%plot(sig)
     
 %%    
-%fi1gure(4)
+figure(4)
 grafs
 %pause(.01)
      M(:,:,iter)=getframe;

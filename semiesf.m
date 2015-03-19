@@ -22,4 +22,4 @@ end
 % w=w0*dd+ran3;
 % x=x0*dd+ran4;
 
-mesh(fi)
+%mesh(fi) por el momento no es necesario
