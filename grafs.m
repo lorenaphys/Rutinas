@@ -13,7 +13,7 @@ MN1(iter)=M1;
 
 n=size(h);
 [s t]=find(A==nivel);
-[q r]=size(A);
+[~, r]=size(A);
 Y1=A(1,2:r);
 X1=A(2,2:r);
 [xx yy]=meshgrid(1:Nx,1:Ny);
@@ -28,6 +28,10 @@ X1=A(2,2:r);
 i=0;
 [q r]=size(ri);
 
+XX = zeros(100,r);
+YY = zeros(100,r);
+ZZ = zeros(100,r);
+c = zeros(100,r);
 
 for j=1:r
         

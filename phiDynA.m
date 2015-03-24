@@ -1,9 +1,9 @@
 clear all
 
-et=1;
-dx=1;
-NF=400;
-sig=0*(1:NF);
+et = 1;
+%dx = 1;
+NF = 40;
+%sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
 sigma=3;
@@ -11,6 +11,14 @@ ro=3.5;
 or=.1;
 gamma = 0.0001;
 Afi = 1;
+rr = zeros(150,50);
+u = zeros(150,50);
+r = zeros(150,50);
+fi = zeros(150,50);
+Nx = 150;
+Ny = 50;
+R = 25;
+ancho = 2;
 %sifiu=0.;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,7 +31,7 @@ Afi = 1;
 %semielipreg;
 %formas4cil
 %exsemicirc
-semiesf
+%semiesf
 %semielip2
 %formaneg
 %formapinching
@@ -31,12 +39,23 @@ semiesf
 %cilinder4
 %cilindersq2
 %fi=-fi;
+
+for i=1:Nx
+    for j=1:Ny
+      r(i,j)=sqrt((i+.5)^2+(j+.5)^2);
+      
+
+          fi(i,j)=-tanh((r(i,j)-R)/ancho);
+   
+   end
+end
+
 fiini=fi;
 bet=0*fi;
 ra=.5:Nx-.5;
 for i=1:Nx
     for j=1:Ny
-        rr(i,j)=abs(ra(1,i));
+        rr(i,j)=ra(1,i);
     end
 end
 
@@ -46,21 +65,24 @@ end
 iter=1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 grafs
-step=500;
+step=50;
 %NF=20;
 dt=1e-4;
-cont=iter;
+%cont=iter;
 %%
-for iter=cont:NF
+for iter=1:NF
     for iiter=1:step
         
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- H=fi;
-        lap0
-        lapfi=lapH;
-        H=fi;
-        grad0p;
-        lapfi=lapfi+g0H./rr;
+ %H=fi;
+        %lap0
+        %lapfi=lapH;
+        %H=fi;
+        %grad0p;
+        %lapfi=lapfi+g0H./rr;
+        
+        lapfi = lap0(fi) + grad0p(fi)./rr;
+       
         
        [a bb]=min(abs(fi(:,1)));
        Ri=bb;
@@ -72,21 +94,25 @@ end
 %u=u+sifiu*lapfi;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-        H=u;
-        lap0
-        lapu=lapH;
-        H=u;
-        grad0p
-        lapu=lapu+g0H./rr;
+%         H=u;
+%         lap0
+%         lapu=lapH;
+%         H=u;
+%         grad0p
+%         lapu=lapu+g0H./rr;
+
+        lapu = lap0(u) + grad0p(u)./rr;
         
         mu=(fi-ep1*u).*((fi).^2-1)-ep*lapfi;
         
-        H=mu;
-        lap0
-        lapmu=lapH;
-        H=mu;
-        grad0p
-        lapmu=lapmu+g0H./rr;
+%         H=mu;
+%         lap0
+%         lapmu=lapH;
+%         H=mu;
+%         grad0p
+%         lapmu=lapmu+g0H./rr;
+
+        lapmu = lap0(mu) + grad0p(mu)./rr;
         
         F=Afi*(2*(3*fi.^2-1-2*ep1*fi.*u).*mu-ep*lapmu)+gamma*lapu;
         
@@ -156,15 +182,15 @@ fi(1,:)=fiini(1,:);
     end
     
     
-save(['Asave-' num2str(iter)])
+%save(['Asave-' num2str(iter)])
        
-sig(iter)=sigma;
+%sig(iter)=sigma;
 
     h=isnan(fi(Nx/2,Ny/2));
     if h==1;
       break
     end
-    sigma  
+    %sigma  
     
 
     %%
@@ -188,7 +214,7 @@ sig(iter)=sigma;
 %     grid
 %     hold off;
     %%
-    iter
+    disp(iter)
 %%    
  
      figure(2)
@@ -217,8 +243,8 @@ sig(iter)=sigma;
 figure(4)
 grafs
 %pause(.01)
-     M(:,:,iter)=getframe;
-    Fm(:,:,iter)=fi(:,:);
+%       M(:,:,iter)=getframe;
+%      Fm(:,:,iter)=fi(:,:);
  %   U(:,:,iter)=u(:,:);
 %%
     
