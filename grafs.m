@@ -8,8 +8,8 @@ hold on
 [A0 h0]=contour(fiini,[nivel nivel],'r');
 hold off
 axis equal
-M1=getframe(gcf);
-MN1(iter)=M1;
+% M1=getframe(gcf);
+% MN1(iter)=M1;
 
 n=size(h);
 [s t]=find(A==nivel);
@@ -70,8 +70,8 @@ colorbar
 %plot3(ri0,zeros(size(hi0)),hi0-.5,'r','linewidth',2);
 
 hold off
-M2=getframe(gcf);
-MN2(iter)=M2;
+% M2=getframe(gcf);
+% MN2(iter)=M2;
 
 % axis image
 % axis vis3d
