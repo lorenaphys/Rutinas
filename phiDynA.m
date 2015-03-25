@@ -74,6 +74,11 @@ dt=1e-4;
 [stat,struc] = fileattrib;
 PathCurrent = struc.Name;
 
+FolderName = 'phiDynA';   
+PathFolder = [PathCurrent '/Resultados/' FolderName];
+[status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+save([PathFolder ['/iter' num2str(iter)]]);
+
 for iter=1:NF
     for iiter=1:step
         
@@ -188,7 +193,7 @@ fi(1,:)=fiini(1,:);
 FolderName = 'phiDynA';   
 PathFolder = [PathCurrent '/Resultados/' FolderName];
 [status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
-save([PathFolder ['/iter' num2str(iter)]]);
+save([PathFolder ['/iter' num2str(iter+1)]]);
        
 %sig(iter)=sigma;
 
