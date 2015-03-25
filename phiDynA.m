@@ -2,7 +2,7 @@ clear all
 
 et = 1;
 %dx = 1;
-NF = 40;
+NF = 4;
 %sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -65,11 +65,15 @@ end
 iter=1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 grafs
-step=50;
+step=5;
 %NF=20;
 dt=1e-4;
 %cont=iter;
 %%
+
+[stat,struc] = fileattrib;
+PathCurrent = struc.Name;
+
 for iter=1:NF
     for iiter=1:step
         
@@ -181,8 +185,10 @@ fi(1,:)=fiini(1,:);
 
     end
     
-    
-%save(['Asave-' num2str(iter)])
+FolderName = 'phiDynA';   
+PathFolder = [PathCurrent '/Resultados/' FolderName];
+[status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+save([PathFolder ['/iter' num2str(iter)]]);
        
 %sig(iter)=sigma;
 
