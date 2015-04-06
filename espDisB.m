@@ -2,11 +2,11 @@ clear all
 N=50;
 rad=10;
 radm=2.5*rad;
-dx=1;
+%dx=1;
 dt=0.0005;
 C=0.1;
 bet=0.2;
-dx=1;
+%dx=1;
 ep=0.01;
 ep1=sqrt(ep);
 D=5;
@@ -25,10 +25,14 @@ pent=iniciogenes;
 count=0;
 countiter=0;
 numer=0;
-numero=0
+numero=0;
 
 fiin=1;
-fiout=-1
+fiout=-1;
+fi = zeros(N,N);
+fi1 = zeros(N,N);
+line = zeros(N,N);
+line1 = zeros(N,N);
 
 for i=1:N
   for j=1:N
@@ -58,6 +62,10 @@ pa=-10.4;
 pb=22.5;
 pc=1/3.6;
 
+sig = zeros(1,11);
+rhoplot = zeros(1,11);
+rhoploti = zeros(1,11);
+
 for q=1:220
 
 
@@ -71,41 +79,52 @@ for iter=1:Finaliter
      
        esc=1.0;
        
-        Fun=fi;
-        delta2fun
-        lapfi=lap;
+       lapfi = delta2fun(fi);
+       
+%         Fun=fi;
+%         delta2fun
+%         lapfi=lap;
         
         
        
         mu=(fi-ep1*C*(1+bet*u)).*(fi.^2-1)-ep*lapfi;
                 
-
-        Fun=mu;      
-        delta2fun
-        lapmu=lap;
+        lapmu = delta2fun(mu);
         
-        Fun=u;
-        delta2fun
-        lapu=lap;
+%         Fun=mu;      
+%         delta2fun
+%         lapmu=lap;
+        
+        lapu = delta2fun(u);
+
+%         Fun=u;
+%         delta2fun
+%         lapu=lap;
        
         F=2*(3*fi.^2-1-2*ep1*C*fi.*(1+bet*u)).*mu-ep*lapmu+gamma*lapu;
    
-
-        Fun=F;
-        delta2fun
-        lapF=lap;
+        lapF = delta2fun(F);
+        
+%         Fun=F;
+%         delta2fun
+%         lapF=lap;
         
         
         Fs=lapfi;
-        Fun=Fs;
-        delta2fun
-        lapFs=lap;
+        
+        lapFs = delta2fun(Fs);
+        
+%         Fun=Fs;
+%         delta2fun
+%         lapFs=lap;
         
         G=-2*mu*ep1*C*bet*(fi.^2-1)-D*lapu-gamma*lapfi;
         
-        Fun=G;
-        delta2fun
-        lapG=lap;
+        lapG = delta2fun(G);
+        
+%         Fun=G;
+%         delta2fun
+%         lapG=lap;
         
         FFF=F-sigma*Fs;
        
@@ -163,7 +182,7 @@ for iter=1:Finaliter
     
     hold off
     
-    Run=[num2str(q) '.' num2str(iter) '-' num2str(rho)]
+    sprintf('%d.%d-%d',q,iter,rho)
   
 end
 

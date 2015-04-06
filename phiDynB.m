@@ -1,9 +1,7 @@
 clear all
 
-et=1;
-dx=1;
-NF=400;
-sig=0*(1:NF);
+et = 1;
+NF = 400;
 ep1=1;
 ep=ep1^2;
 sigma=3;
@@ -11,33 +9,57 @@ ro=3.5;
 or=.1;
 gamma = 0.0001;
 Afi = 1;
+rr = zeros(150,50);
+u = zeros(150,50);
+r = zeros(150,50);
+fi = zeros(150,50);
+Nx = 150;
+Ny = 50;
+R = 25;
+ancho = 2;
+
+for i=1:Nx
+    for j=1:Ny
+      r(i,j)=sqrt((i+.5)^2+(j+.5)^2);
+      
+
+          fi(i,j)=-tanh((r(i,j)-R)/ancho);
+   
+   end
+end
+
 
 fiini=fi;
 bet=0*fi;
 ra=.5:Nx-.5;
 for i=1:Nx
     for j=1:Ny
-        rr(i,j)=abs(ra(1,i));
+        rr(i,j)=ra(1,i);
     end
 end
 
 iter=1;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 grafs
 step=500;
 dt=1e-4;
-cont=iter;
+
+[stat,struc] = fileattrib;
+PathCurrent = struc.Name;
+
+FolderName = 'phiDynB';   
+PathFolder = [PathCurrent '/Resultados/' FolderName];
+[status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+save([PathFolder ['/iter' num2str(iter)]]);
 
 for iter=cont:NF
     for iiter=1:step
-        H=fi;
-        lap0
-        lapfi=lapH;
-        H=fi;
-        grad0p;
-        lapfi=lapfi+g0H./rr;
         
-       [a bb]=min(abs(fi(:,1)));
-       Ri=bb;
+        
+        lapfi = lap0(fi) + grad0p(fi)./rr;
+        
+        [a bb]=min(abs(fi(:,1)));
+        Ri=bb;
 for i=1:Nx
     for j=1:Ny
 u(i,j)=or+ro*exp(-((j)^2+(i-Ri+4)^2)/30);
@@ -45,42 +67,19 @@ u(i,j)=or+ro*exp(-((j)^2+(i-Ri+4)^2)/30);
 end
 
 
-H=u;
-        lap0
-        lapu=lapH;
-        H=u;
-        grad0p
-        lapu=lapu+g0H./rr;
+        lapu = lap0(u) + grad0p(u)./rr;
         
         mu=(fi-ep1*u).*((fi).^2-1)-ep*lapfi;
         
-        H=mu;
-        lap0
-        lapmu=lapH;
-        H=mu;
-        grad0p
-        lapmu=lapmu+g0H./rr;
+        lapmu = lap0(mu) + grad0p(mu)./rr;
         
         F=Afi*(2*(3*fi.^2-1-2*ep1*fi.*u).*mu-ep*lapmu)+gamma*lapu;
         
-        H=F;
-        lap0
-        lapF=lapH;
-        H=F;
-
-        grad0p
-        lapF=lapF+g0H./rr;
-        
+        lapF = lap0(F) + grad0p(F)./rr;
         
         Fs=-sigma*lapfi;
 
-        
-        H=Fs;
-        lap0
-        lapFs=lapH;
-        H=Fs;
-        grad0p
-        lapFs=lapFs+g0H./rr;
+        lapFs = lap0(Fs) + grad0p(Fs)./rr;
         
         fi=fi+dt*(lapF+lapFs);
         
@@ -89,26 +88,25 @@ H=u;
 
     end
     
-    save(['Bsave-' num2str(iter)])
-       
-sig(iter)=sigma;
+    FolderName = 'phiDynB';   
+    PathFolder = [PathCurrent '/Resultados/' FolderName];
+    [status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+    save([PathFolder ['/iter' num2str(iter+1)]]);
+
 
     h=isnan(fi(Nx/2,Ny/2));
     if h==1;
       break
     end
-    sigma 
-    
-    iter
-    
-    figure(2)
-    
-    mesh(fi), view(80,20)
-    
+
+    disp(iter)
+%%    
+ 
+     figure(2)
+ 
+     mesh(fi), view(80,20)
+   
     figure(4)
     grafs
-    
-    M(:,:,iter)=getframe;
-    Fm(:,:,iter)=fi(:,:);
     
 end
