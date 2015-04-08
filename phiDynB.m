@@ -40,7 +40,6 @@ end
 
 iter=1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-grafs
 step=500;
 dt=1e-4;
 
@@ -102,11 +101,5 @@ end
     disp(iter)
 %%    
  
-     figure(2)
- 
-     mesh(fi), view(80,20)
-   
-    figure(4)
-    grafs
     
 end

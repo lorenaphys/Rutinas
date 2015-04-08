@@ -41,7 +41,6 @@ end
 
 iter=1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-grafs
 step=500;
 dt=1e-4;
 
@@ -102,14 +101,7 @@ save([PathFolder ['/iter' num2str(iter+1)]]);
     end
 
     disp(iter)
-%%    
- 
-     figure(2)
- 
-     mesh(fi), view(80,20)
-   
-figure(4)
-grafs
+
     
 end
 
