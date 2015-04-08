@@ -79,7 +79,7 @@ for iter=1:Finaliter
     FolderName = 'espDisA';   
     PathFolder = [PathCurrent '/Resultados/' FolderName];
     [status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
-    save([PathFolder ['/iter' num2str(q)]]);
+    save([PathFolder ['/iter' num2str(numero)]]);
     
     disp(numero)
   
