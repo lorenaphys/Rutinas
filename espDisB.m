@@ -90,7 +90,7 @@ for iter=1:Finaliter
 
     numero=numero+1;
 
-    FolderName = 'espDisA';   
+    FolderName = 'espDisB';   
     PathFolder = [PathCurrent '/Resultados/' FolderName];
     [status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
     save([PathFolder ['/iter' num2str(q)]]);
