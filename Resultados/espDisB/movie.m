@@ -1,6 +1,10 @@
 clear all
 
-N = 2200;
+N = 10;
+
+qq = struct('cdata',[],'colormap',[]);
+
+set(gca,'NextPlot','replaceChildren');
 
 for ty=1:N
  clear {fi u}
@@ -13,14 +17,9 @@ for ty=1:N
     plot(fi(25,:))
     axis square
     grid on
-    hold off
+    %hold off
     qq(ty)=getframe;
     disp(ty)
 end
 
-for i = 1:N
-    Xn = frame2im(qq(i));
-    mk(i) = getframe(gcf);
-end
-
-movie2avi(mk,'espDisB','compression','none')
+movie2avi(qq,'espDisB','compression','none')
