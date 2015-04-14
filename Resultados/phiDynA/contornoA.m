@@ -17,7 +17,7 @@ for t = 1:N
     contour(fiini,[nivel nivel],'r','LineWidth',2);
     hold off
     axis equal
-    axis([-5 30 0 30])
+    axis([-5 30 0 50])
     grid on
     k(t) = getframe(gcf);
     disp(t)
