@@ -1,4 +1,4 @@
-clear all
+%clear all
 N=50;
 rad=10;
 dt=0.0005;
@@ -18,6 +18,7 @@ numero=0;
 fiin=1;
 fiout=-1;
 fi = zeros(N,N);
+u = zeros(N,N);
 
 for i=1:N
   for j=1:N
@@ -29,7 +30,11 @@ end
 fi(1:20,:)=1;
 fi(1:15,:)=-1;
 
-u=0.0*(rand(N,N)-.5);
+for i = 1:N
+    for j = 1:N
+        u(i,j) = exp(((j-25)^2 + (i-25)^2)/30);
+    end
+end
 
 [stat,struc] = fileattrib;
 PathCurrent = struc.Name;

@@ -18,11 +18,13 @@ numero=0;
 fiin=1;
 fiout=-1;
 fi = zeros(N,N);
+u = zeros(N,N);
 
 for i=1:N
   for j=1:N
        r=sqrt((i-.5*(N+1))^2+(j-.5*(N+1))^2);
        fi(i,j)=.5*(fiout-fiin)*(-tanh((r-rad)*0.8))+(fiout+fiin)*.8;
+       %u(i,j) = exp(((j-25)^2 + (i-25)^2)/30)-1;
   end
 end
 
