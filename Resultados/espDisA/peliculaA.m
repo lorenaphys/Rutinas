@@ -12,7 +12,7 @@ for ty=1:N
     plot(u(25,:),'r')
     plot(fi(25,:))
     axis square
-    axis([0 50 -1 1])
+    %axis([0 50 -1 1])
     grid on
     hold off
     qq(ty)=getframe(gcf);

@@ -57,8 +57,7 @@ for iter=cont:NF
         
         lapfi = lap0(fi) + grad0p(fi)./rr;
         
-        [a bb]=min(abs(fi(:,1)));
-        Ri=bb;
+        [a, Ri]=min(abs(fi(:,1)));
 for i=1:Nx
     for j=1:Ny
 u(i,j)=or+ro*exp(-((j)^2+(i-Ri+4)^2)/30);

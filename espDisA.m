@@ -1,7 +1,6 @@
 clear all
 N=50;
 rad=10;
-radm=2.5*rad;
 dt=0.0005;
 C=0.1;
 bet=0.2;
