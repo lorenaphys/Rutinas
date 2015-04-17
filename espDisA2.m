@@ -9,6 +9,7 @@ ep1=sqrt(ep);
 D=5;
 sigma=3.0;
 gamma=0.0001;
+ro = 2.5e-16;
 
 step=100;
 Finaliter=10;
@@ -19,24 +20,20 @@ numero=0;
 fiin=1;
 fiout=-1;
 fi = zeros(N,N);
-%u = zeros(N,N);
+u = zeros(N,N);
 
 for i=1:N
   for j=1:N
        r=sqrt((i-.5*(N+1))^2+(j-.5*(N+1))^2);
        fi(i,j)=.5*(fiout-fiin)*(-tanh((r-rad)*0.8))+(fiout+fiin)*.8;
+       u(i,j) = ro*exp(((j-25)^2 + (i-25)^2)/30);
   end
 end
 
 fi(1:20,:)=1;
 fi(1:15,:)=-1;
 
-% for i = 1:N
-%     for j = 1:N
-%         u(i,j) = exp(((j-25)^2 + (i-25)^2)/30);
-%     end 
-% end
-u=0.0*(rand(N,N)-.5);
+%u=0.0*(rand(N,N)-.5);
 
 [stat,struc] = fileattrib;
 PathCurrent = struc.Name;

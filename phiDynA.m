@@ -24,7 +24,7 @@ for i=1:Nx
       r(i,j)=sqrt((i+.5)^2+(j+.5)^2);
       
 
-          fi(i,j)=tanh((r(i,j)-R)/ancho);
+          fi(i,j)=-tanh((r(i,j)-R)/ancho);
    
    end
 end
