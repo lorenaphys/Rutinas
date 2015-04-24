@@ -24,7 +24,7 @@ for i=1:Nx
       r(i,j)=sqrt((i+.5)^2+(j+.5)^2);
       
 
-          fi(i,j)=-tanh((r(i,j)-R)/ancho);
+          fi(i,j)=tanh((r(i,j)-R)/ancho);
    
    end
 end
@@ -47,9 +47,9 @@ dt=1e-4;
 [stat,struc] = fileattrib;
 PathCurrent = struc.Name;
 
-FolderName = 'phiDynA';   
-PathFolder = [PathCurrent '/Resultados/' FolderName];
-[status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+FolderName = 'phiDynA2';   
+PathFolder = [PathCurrent '/Resultados2/' FolderName];
+[status,message,messageid] = mkdir([PathCurrent '/Resultados2'], FolderName);
 save([PathFolder ['/iter' num2str(iter)]]);
 
 disp(1)
@@ -62,7 +62,7 @@ for iter=1:NF
         lapfi = lap0(fi) + grad0p(fi)./rr;
        
         
-       [a, Ri]=min(abs(fi(:,1)));
+       [a, Ri]=max(abs(fi(:,1)));
 for i=1:Nx
     for j=1:Ny
 u(i,j)=or+ro*exp(-((j)^2+(i-Ri+4)^2)/30);
@@ -90,9 +90,9 @@ end
 
     end
     
-FolderName = 'phiDynA';   
-PathFolder = [PathCurrent '/Resultados/' FolderName];
-[status,message,messageid] = mkdir([PathCurrent '/Resultados'], FolderName);
+FolderName = 'phiDynA2';   
+PathFolder = [PathCurrent '/Resultados2/' FolderName];
+[status,message,messageid] = mkdir([PathCurrent '/Resultados2'], FolderName);
 save([PathFolder ['/iter' num2str(iter+1)]]);
 
 

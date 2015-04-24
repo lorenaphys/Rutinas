@@ -46,7 +46,7 @@ dt=1e-4;
 [stat,struc] = fileattrib;
 PathCurrent = struc.Name;
 
-FolderName = 'phiDynB';   
+FolderName = 'phiDynB2';   
 PathFolder = [PathCurrent '/Resultados2/' FolderName];
 [status,message,messageid] = mkdir([PathCurrent '/Resultados2'], FolderName);
 save([PathFolder ['/iter' num2str(iter)]]);

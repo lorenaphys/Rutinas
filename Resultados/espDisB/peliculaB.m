@@ -1,10 +1,11 @@
+clear all
 N = 2200;
 qq = struct('cdata',[],'colormap',[]);
 
-for ty=1:N
+for lm=1:N
  clear {fi u}
     
-    load(['iter' num2str(ty)])
+    load(['iter' num2str(lm)])
 
     figure(1)
     clf
@@ -15,8 +16,8 @@ for ty=1:N
     axis([0 50 -1.3 1.3])
     grid on
     hold off
-    qq(ty)=getframe(gcf);
-    disp(ty)
+    qq(lm)=getframe(gcf);
+    disp(lm)
 end
 
 movie2avi(qq,'espDisB','fps',100,'compression','none')
