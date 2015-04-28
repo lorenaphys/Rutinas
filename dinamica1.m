@@ -10,13 +10,14 @@ Ny = 50;
 dt = 1e-4;
 C = 0.1;
 bet = 0.2;
-ep = 0.01;
+%ep = 1;
+ep = 0.01;%Prueba 2
 ep1 = sqrt(ep);
 sigma = 3.0;
 gamma = 1e-4;
 ro = 3.5;
 or = 0.1;
-Afi = 1;
+Afi = 1.5;
 R = 25;
 ancho = 2;
 ra=.5:Nx-.5;
@@ -90,7 +91,7 @@ end
         
         fi = fi - dt*(F + Fs);
         
-        fi(1,:)=fiini(1,:);
+        %fi(1,:)=fiini(1,:); Asi fi ya no esta sujeto al borde
 
 
     end
